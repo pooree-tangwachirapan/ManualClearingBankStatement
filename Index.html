@@ -1,0 +1,931 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>คู่มือ ZCMXXE004</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: full-width title band, then sticky contents rail + one reading column; every mode keeps its own colour from screen mock to result grid */
+:root {
+  --bg: #f3f6f9;
+  --surface: #ffffff;
+  --surface-2: #f7f9fc;
+  --ink: #142030;
+  --ink-2: #4b5a6c;
+  --ink-3: #738195;
+  --line: #dbe2eb;
+  --shell: #1f3449;
+  --shell-ink: #ecf2f8;
+  --sap: #0a6ed1;
+  --on-accent: #ffffff;
+  --in: #0d8f6e;
+  --in-soft: #e1f4ee;
+  --out: #d4572b;
+  --out-soft: #fcebe3;
+  --bth: #5b45c9;
+  --bth-soft: #ece8fb;
+  --ok: #1b9447;
+  --err: #cf3434;
+  --warn: #b77e00;
+  --warn-soft: #fff4d6;
+  --code-bg: #eef2f7;
+  --band: #16283b;
+  --band-ink: #f1f6fb;
+  --band-ink-2: #a9bdd1;
+  --font-ui: "IBM Plex Sans Thai", "Leelawadee UI", "Tahoma", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "Consolas", "Courier New", monospace;
+  --step--1: 0.84rem;
+  --step-0: 1rem;
+  --step-1: 1.18rem;
+  --step-2: 1.45rem;
+  --step-3: 2.05rem;
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e141b;
+    --surface: #161e28;
+    --surface-2: #1b2531;
+    --ink: #e7edf4;
+    --ink-2: #a8b4c3;
+    --ink-3: #7e8b9c;
+    --line: #2a3644;
+    --shell: #26405a;
+    --shell-ink: #e9f1f8;
+    --sap: #4ea3ff;
+    --on-accent: #0b1520;
+    --in: #39c79e;
+    --in-soft: #12352c;
+    --out: #ff8a5e;
+    --out-soft: #3a2018;
+    --bth: #a796ff;
+    --bth-soft: #272144;
+    --ok: #4cc77a;
+    --err: #ff6b6b;
+    --warn: #f0b93a;
+    --warn-soft: #33290f;
+    --code-bg: #1f2a37;
+    --band: #0a1a29;
+    --band-ink: #eaf2fa;
+    --band-ink-2: #8fa6bd;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e141b;
+  --surface: #161e28;
+  --surface-2: #1b2531;
+  --ink: #e7edf4;
+  --ink-2: #a8b4c3;
+  --ink-3: #7e8b9c;
+  --line: #2a3644;
+  --shell: #26405a;
+  --shell-ink: #e9f1f8;
+  --sap: #4ea3ff;
+  --on-accent: #0b1520;
+  --in: #39c79e;
+  --in-soft: #12352c;
+  --out: #ff8a5e;
+  --out-soft: #3a2018;
+  --bth: #a796ff;
+  --bth-soft: #272144;
+  --ok: #4cc77a;
+  --err: #ff6b6b;
+  --warn: #f0b93a;
+  --warn-soft: #33290f;
+  --code-bg: #1f2a37;
+  --band: #0a1a29;
+  --band-ink: #eaf2fa;
+  --band-ink-2: #8fa6bd;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: var(--step-0);
+  line-height: 1.7;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--bg);
+}
+.wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3, h4 { line-height: 1.3; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+a { color: var(--sap); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--sap); outline-offset: 2px; border-radius: 4px; }
+code, .mono { font-family: var(--font-mono); font-size: 0.9em; }
+code { background: var(--code-bg); padding: 1px 6px; border-radius: 5px; }
+kbd {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  font-weight: 600;
+  display: inline-block;
+  min-width: 1.9em;
+  text-align: center;
+  padding: 1px 7px;
+  border: 1px solid var(--line);
+  border-bottom-width: 3px;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* ---------- title band ---------- */
+.band { background: var(--band); color: var(--band-ink); }
+.band .wrap { padding-block: 40px 34px; display: grid; gap: 22px; }
+.band .eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--band-ink-2);
+}
+.band h1 { font-size: var(--step-3); font-weight: 700; }
+.band .lead { color: var(--band-ink-2); max-width: 62ch; font-size: var(--step-1); line-height: 1.6; }
+.tcode-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.tcode {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1.05rem;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: var(--band-ink);
+  color: var(--band);
+}
+.replace-chip {
+  font-size: var(--step--1);
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--band-ink-2);
+  color: var(--band-ink);
+}
+.replace-chip b { font-family: var(--font-mono); font-weight: 500; }
+
+/* ---------- page grid ---------- */
+.page { display: grid; grid-template-columns: 1fr; gap: 32px; padding-block: 32px 64px; }
+@media (min-width: 1000px) {
+  .page { grid-template-columns: 220px minmax(0, 1fr); }
+}
+.toc {
+  align-self: start;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+@media (min-width: 1000px) {
+  .toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 20px); }
+}
+.toc h2 { font-size: var(--step--1); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
+.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.toc a { display: flex; gap: 10px; align-items: center; padding: 5px 8px; border-radius: 7px; color: var(--ink); text-decoration: none; font-size: 0.95rem; }
+.toc a:hover { background: var(--surface-2); }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ink-3); flex: none; }
+.dot.in { background: var(--in); } .dot.out { background: var(--out); } .dot.bth { background: var(--bth); }
+
+main { min-width: 0; display: grid; gap: 56px; }
+section { display: grid; gap: 20px; scroll-margin-top: 20px; min-width: 0; }
+.sec-head { display: grid; gap: 6px; }
+.sec-head .kicker { font-family: var(--font-mono); font-size: var(--step--1); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+.sec-head h2 { font-size: var(--step-2); font-weight: 700; }
+.sec-head p { color: var(--ink-2); max-width: 68ch; }
+h3 { font-size: var(--step-1); font-weight: 600; }
+.prose { display: grid; gap: 10px; max-width: 72ch; color: var(--ink); }
+.muted { color: var(--ink-2); }
+
+/* ---------- mode identity ---------- */
+.mode-head {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 14px;
+  padding: 18px 20px; border-radius: var(--radius);
+}
+.mode-head.in { background: var(--in-soft); } .mode-head.out { background: var(--out-soft); } .mode-head.bth { background: var(--bth-soft); }
+.mode-badge {
+  font-family: var(--font-mono); font-weight: 600; font-size: 0.85rem;
+  padding: 4px 10px; border-radius: 7px; color: var(--on-accent);
+}
+.mode-badge.in { background: var(--in); } .mode-badge.out { background: var(--out); } .mode-badge.bth { background: var(--bth); }
+.mode-head h2 { font-size: var(--step-2); }
+.mode-head .old { font-family: var(--font-mono); font-size: var(--step--1); color: var(--ink-2); margin-left: auto; }
+
+.modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.mode-card {
+  display: grid; gap: 10px; align-content: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 18px;
+}
+.mode-card .flow { font-family: var(--font-mono); font-size: var(--step--1); color: var(--ink-2); }
+.mode-card h3 { display: flex; gap: 10px; align-items: center; }
+.mode-card ul { margin: 0; padding-left: 1.1em; color: var(--ink-2); font-size: 0.95rem; }
+.mode-card a { font-size: 0.92rem; font-weight: 600; text-decoration: none; }
+.mode-card.in a { color: var(--in); } .mode-card.out a { color: var(--out); } .mode-card.bth a { color: var(--bth); }
+.swatch { width: 14px; height: 14px; border-radius: 4px; flex: none; }
+.swatch.in { background: var(--in); } .swatch.out { background: var(--out); } .swatch.bth { background: var(--bth); }
+
+/* ---------- steps (a real sequence) ---------- */
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: s; }
+.steps li {
+  counter-increment: s;
+  display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px;
+}
+.steps li::before {
+  content: counter(s);
+  width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-weight: 700; color: var(--on-accent); background: var(--sap);
+}
+.steps b { display: block; }
+.steps span { color: var(--ink-2); font-size: 0.95rem; }
+
+/* ---------- SAP-like window mock ---------- */
+.scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.sapwin {
+  min-width: 600px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden; font-size: 0.9rem;
+}
+.sapwin .bar { background: var(--shell); color: var(--shell-ink); padding: 10px 16px; font-weight: 600; display: flex; justify-content: space-between; gap: 12px; }
+.sapwin .bar .mono { opacity: 0.8; font-weight: 400; }
+.sapwin .tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 14px; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.sbtn {
+  font: inherit; font-size: 0.82rem; padding: 2px 10px; border-radius: 6px;
+  border: 1px solid var(--sap); color: var(--sap); background: var(--surface); white-space: nowrap;
+}
+.sbtn.primary { background: var(--sap); color: var(--on-accent); }
+.sbtn.hl { box-shadow: 0 0 0 3px var(--warn-soft), 0 0 0 4px var(--warn); }
+.sapwin .body { padding: 14px 18px 18px; display: grid; gap: 4px; }
+.fs-title { font-size: 0.82rem; color: var(--ink-3); margin: 6px 0 2px; }
+.radio-line { display: flex; gap: 8px; align-items: center; padding: 3px 0; }
+.radio { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--ink-3); flex: none; display: grid; place-items: center; }
+.radio.on { border-color: var(--sap); }
+.radio.on::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--sap); }
+.frow { display: grid; grid-template-columns: 200px 150px 34px 150px 24px; gap: 8px; align-items: center; padding: 2px 0 2px 26px; }
+.frow.single { grid-template-columns: 200px 150px; }
+.frow .lbl { color: var(--ink); display: flex; gap: 6px; align-items: center; }
+.req { color: var(--err); font-weight: 700; }
+.inp {
+  height: 24px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface-2);
+  font-family: var(--font-mono); font-size: 0.8rem; padding: 2px 6px; color: var(--ink); overflow: hidden; white-space: nowrap;
+}
+.inp.short { width: 70px; }
+.to { color: var(--ink-3); font-size: 0.8rem; }
+.multi { width: 20px; height: 18px; border: 1px solid var(--sap); border-radius: 4px; position: relative; }
+.multi::after { content: ""; position: absolute; left: 5px; top: 4px; width: 8px; height: 6px; border-left: 2px solid var(--sap); border-bottom: 2px solid var(--sap); }
+.frow.new { background: var(--warn-soft); border-radius: 6px; }
+.group-box { margin: 6px 0 4px 26px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; display: grid; gap: 1px; }
+.group-box .radio-line { font-size: 0.85rem; }
+.newtag { font-size: 0.7rem; font-weight: 600; color: var(--warn); border: 1px solid var(--warn); border-radius: 999px; padding: 0 7px; margin-left: 6px; }
+.fig-cap { font-size: var(--step--1); color: var(--ink-3); }
+
+/* ---------- tables ---------- */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-size: 0.8rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-3); background: var(--surface-2); white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+td.mono, td .mono { white-space: nowrap; }
+.yes { color: var(--err); font-weight: 600; white-space: nowrap; }
+
+/* chips for grouping keys */
+.keys { display: flex; flex-wrap: wrap; gap: 5px; }
+td .keys { min-width: 250px; }
+.key {
+  font-size: 0.78rem; font-weight: 500; padding: 1px 8px; border-radius: 999px; white-space: nowrap;
+  border: 1px solid var(--line); background: var(--surface-2); color: var(--ink);
+}
+.key.k-gl { border-color: var(--sap); color: var(--sap); }
+.key.k-txt { border-color: var(--in); color: var(--in); }
+.key.k-asg { border-color: var(--out); color: var(--out); }
+.key.k-date { border-color: var(--bth); color: var(--bth); }
+.key.k-ref { border-color: var(--warn); color: var(--warn); }
+.optno {
+  width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center;
+  font-family: var(--font-mono); font-weight: 600; background: var(--in-soft); color: var(--in);
+}
+.after { font-size: 0.85rem; white-space: nowrap; }
+
+/* ---------- ALV result mock ---------- */
+.alv { min-width: 760px; }
+.alv table { font-size: 0.8rem; }
+.alv th { font-size: 0.72rem; text-transform: none; letter-spacing: 0; }
+.alv td { font-family: var(--font-mono); white-space: nowrap; padding: 6px 10px; }
+.alv tr.sub td { background: var(--surface-2); font-weight: 600; }
+.led { display: inline-block; width: 11px; height: 11px; border-radius: 50%; vertical-align: -1px; }
+.led.g { background: var(--ok); } .led.r { background: var(--err); } .led.y { background: var(--warn); }
+.num { text-align: right; }
+.hot { color: var(--sap); text-decoration: underline; }
+.chk { display: inline-block; width: 13px; height: 13px; border: 1.5px solid var(--ink-3); border-radius: 3px; vertical-align: -2px; position: relative; }
+.chk.on { border-color: var(--sap); background: var(--sap); }
+.chk.on::after { content: ""; position: absolute; left: 3px; top: 0; width: 4px; height: 7px; border-right: 2px solid var(--on-accent); border-bottom: 2px solid var(--on-accent); transform: rotate(45deg); }
+.example-tag { font-size: 0.72rem; font-weight: 600; color: var(--ink-3); border: 1px dashed var(--ink-3); border-radius: 999px; padding: 0 8px; }
+
+/* ---------- flow diagrams ---------- */
+.flowline { display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px; }
+.fbox {
+  flex: 1 1 170px; min-width: 0;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 12px 14px; display: grid; gap: 4px; align-content: start;
+}
+.fbox .tag { font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-3); }
+.fbox b { font-size: 0.98rem; }
+.fbox span { font-size: 0.88rem; color: var(--ink-2); }
+.fbox.out { border-top: 4px solid var(--out); }
+.fbox.bth { border-top: 4px solid var(--bth); }
+.fbox.in { border-top: 4px solid var(--in); }
+.arrow { align-self: center; color: var(--ink-3); font-size: 1.3rem; flex: none; }
+@media (max-width: 640px) { .arrow { display: none; } }
+
+/* matching picture for Outgoing */
+.match {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px;
+}
+.mcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; display: grid; gap: 10px; }
+.mcard h4 { font-size: 0.95rem; display: flex; gap: 8px; align-items: center; }
+.stage { font-family: var(--font-mono); font-size: 0.75rem; color: var(--on-accent); background: var(--out); border-radius: 6px; padding: 1px 8px; }
+.pair { display: grid; grid-template-columns: 1fr auto 1fr; gap: 6px; align-items: center; font-family: var(--font-mono); font-size: 0.78rem; }
+.pill { padding: 4px 8px; border-radius: 7px; text-align: center; }
+.pill.ib { background: var(--in-soft); color: var(--in); }
+.pill.rc { background: var(--out-soft); color: var(--out); }
+.pill-stack { display: grid; gap: 4px; }
+.eq { color: var(--ink-3); }
+.mcard p { font-size: 0.88rem; color: var(--ink-2); }
+
+/* ---------- callouts ---------- */
+.note { border-radius: var(--radius); padding: 14px 16px; display: grid; gap: 6px; border: 1px solid var(--line); background: var(--surface); }
+.note.tip { border-left: 4px solid var(--in); }
+.note.warn { border-left: 4px solid var(--warn); background: var(--warn-soft); }
+.note b.t { font-size: 0.95rem; }
+.note p, .note li { font-size: 0.95rem; color: var(--ink); }
+.note ul { margin: 0; padding-left: 1.1em; }
+
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; display: grid; gap: 10px; align-content: start; }
+.panel ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
+.keyrow { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 0.95rem; }
+
+.faq { display: grid; gap: 12px; }
+.qa { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; display: grid; gap: 8px; }
+.qa h3 { font-size: 1.02rem; }
+.qa p { color: var(--ink-2); }
+
+footer { border-top: 1px solid var(--line); color: var(--ink-3); font-size: var(--step--1); }
+footer .wrap { padding-block: 22px 32px; display: flex; flex-wrap: wrap; gap: 8px 24px; }
+
+@media (max-width: 520px) {
+  .band h1 { font-size: 1.65rem; }
+  .mode-head .old { margin-left: 0; }
+}
+</style>
+
+<header class="band">
+  <div class="wrap">
+    <div class="eyebrow">คู่มือผู้ใช้ · SAP S/4HANA · FI Bank Clearing</div>
+    <h1>Program Reprocess Clearing Bank Statement</h1>
+    <p class="lead">จับคู่รายการค้างในบัญชีพักธนาคาร แล้ว post ใบเคลียร์ (FB05) ให้อัตโนมัติ — รวม 3 โปรแกรมเดิมจาก ECC ไว้ในหน้าจอเดียว เลือกโหมดด้วยปุ่ม radio</p>
+    <div class="tcode-row">
+      <span class="tcode">ZCMXXE004</span>
+      <span class="replace-chip">Incoming แทน <b>ZARP003</b></span>
+      <span class="replace-chip">Outgoing แทน <b>ZARP004</b></span>
+      <span class="replace-chip">Incoming and Outgoing แทน <b>ZFI_BANK_CLEAR</b></span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap page">
+  <nav class="toc" aria-label="สารบัญ">
+    <h2>สารบัญ</h2>
+    <ol>
+      <li><a href="#overview"><span class="dot"></span>ภาพรวม 3 โหมด</a></li>
+      <li><a href="#quickstart"><span class="dot"></span>เริ่มใช้งาน</a></li>
+      <li><a href="#incoming"><span class="dot in"></span>Incoming</a></li>
+      <li><a href="#outgoing"><span class="dot out"></span>Outgoing</a></li>
+      <li><a href="#inout"><span class="dot bth"></span>Incoming and Outgoing</a></li>
+      <li><a href="#messages"><span class="dot"></span>ข้อความและวิธีแก้</a></li>
+      <li><a href="#setup"><span class="dot"></span>ตาราง Business Place</a></li>
+      <li><a href="#faq"><span class="dot"></span>คำถามที่พบบ่อย</a></li>
+      <li><a href="#reference"><span class="dot"></span>ค่าที่โปรแกรมใช้</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <!-- ================= OVERVIEW ================= -->
+    <section id="overview">
+      <div class="sec-head">
+        <div class="kicker">ภาพรวม</div>
+        <h2>โปรแกรมนี้ทำอะไร</h2>
+        <p>หลังรับ bank statement เข้าระบบแล้ว รายการเงินเข้า–ออกจะค้างอยู่ใน G/L บัญชีพักธนาคาร (บัญชีที่คุม open item) โปรแกรมนี้หาคู่ของรายการเหล่านั้นตามกติกาของแต่ละโหมด แล้วสร้างใบเคลียร์ให้ ผู้ใช้ไม่ต้องเลือกทีละบรรทัดใน FB05 เอง</p>
+      </div>
+      <div class="modes">
+        <article class="mode-card in">
+          <h3><span class="swatch in"></span>Incoming</h3>
+          <div class="flow">เงินเข้า · จัดกลุ่มแล้วเคลียร์</div>
+          <ul>
+            <li>จัดกลุ่มรายการตามตัวเลือก Grouping 11 แบบ</li>
+            <li>กลุ่มที่ยอดรวมเป็น 0 ถูกเคลียร์ด้วยใบ <code>IC</code></li>
+            <li>แก้ Text / Assignment / Ref Key3 ของใบเคลียร์ตามตัวเลือก</li>
+          </ul>
+          <a href="#incoming">ดูวิธีใช้ Incoming →</a>
+        </article>
+        <article class="mode-card out">
+          <h3><span class="swatch out"></span>Outgoing</h3>
+          <div class="flow">จับคู่ IB กับ RC ของลูกค้า</div>
+          <ul>
+            <li>จับคู่ใบ IB กับใบรับเงินของลูกค้า (RC) 3 ด่าน</li>
+            <li>ผลต่างไม่เกิน 1.00 บาท ลงบัญชีผลต่างให้</li>
+            <li>post ทีละคู่ (Match no.) ด้วยใบ <code>IC</code></li>
+          </ul>
+          <a href="#outgoing">ดูวิธีใช้ Outgoing →</a>
+        </article>
+        <article class="mode-card bth">
+          <h3><span class="swatch bth"></span>Incoming and Outgoing</h3>
+          <div class="flow">เลือกเอง · Simulate · POST</div>
+          <ul>
+            <li>ผู้ใช้ติ๊กรายการที่จะเคลียร์เอง</li>
+            <li>Simulate ดูยอด Dr/Cr ก่อน post</li>
+            <li>post ด้วยใบ <code>IY</code> หรือตั้งเป็น background job</li>
+          </ul>
+          <a href="#inout">ดูวิธีใช้ In+Out →</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= QUICK START ================= -->
+    <section id="quickstart">
+      <div class="sec-head">
+        <div class="kicker">เริ่มใช้งาน</div>
+        <h2>ใช้งานใน 6 ขั้น</h2>
+      </div>
+      <ol class="steps">
+        <li><div><b>เข้า T-code <code>ZCMXXE004</code></b><span>เปิดหน้า Selection Criteria ค่าเริ่มต้นคือโหมด Incoming</span></div></li>
+        <li><div><b>เลือกโหมดด้วยปุ่ม radio</b><span>หน้าจอจะแสดงเฉพาะช่องของโหมดที่เลือก ช่องของโหมดอื่นถูกซ่อน</span></div></li>
+        <li><div><b>กรอกเงื่อนไข</b><span>ช่องบังคับต่างกันในแต่ละโหมด (ดูในหัวข้อของโหมดนั้น) กด <kbd>F4</kbd> ที่ Company Code, G/L Account, Business Area, Document Type, Customer เพื่อเลือกจากรายการ</span></div></li>
+        <li><div><b>กด Execute <kbd>F8</kbd></b><span>หรือบันทึกเป็น Variant ไว้ใช้ซ้ำ / ตั้งเป็น background job</span></div></li>
+        <li><div><b>ตรวจหน้าผล</b><span>ดูกลุ่มหรือคู่ที่โปรแกรมหามาให้ แถวแดงคือรายการที่จะไม่ถูก post</span></div></li>
+        <li><div><b>กดปุ่ม post ของโหมด</b><span>Incoming: <b>Auto Choose</b> · Outgoing: <b>Execute</b> · In+Out: <b>Simulate</b> แล้ว <b>POST</b> — จากนั้นดูเลขใบเคลียร์และข้อความในคอลัมน์ท้ายตาราง</span></div></li>
+      </ol>
+      <div class="note warn">
+        <b class="t">ก่อนกดปุ่ม post</b>
+        <p>ทุกปุ่ม post สร้างเอกสารบัญชีจริงทันที หากเคลียร์ผิดคู่ ต้องให้ฝ่ายบัญชีกลับรายการเคลียร์ด้วย <code>FBRA</code> (Reset Cleared Items)</p>
+      </div>
+    </section>
+
+    <!-- ================= INCOMING ================= -->
+    <section id="incoming">
+      <div class="mode-head in">
+        <span class="mode-badge in">IN</span>
+        <h2>Incoming</h2>
+        <span class="old">แทน ZARP003 · Auto Choose Match Reconcile MT940</span>
+      </div>
+
+      <h3>หน้าจอเลือกข้อมูล</h3>
+      <div class="scroll">
+        <div class="sapwin" role="img" aria-label="ภาพจำลองหน้าจอเลือกข้อมูลโหมด Incoming">
+          <div class="bar"><span>Program Reprocess Clearing Bank Statement</span><span class="mono">ZCMXXE004</span></div>
+          <div class="tools"><span class="sbtn">Save as Variant…</span><span class="sbtn primary">Execute F8</span></div>
+          <div class="body">
+            <div class="fs-title">Selection Criteria</div>
+            <div class="radio-line"><span class="radio on"></span><b>Incoming (ZARP003)</b></div>
+            <div class="frow"><span class="lbl">Company Code <span class="req">*</span></span><span class="inp">1001</span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">Document Number</span><span class="inp"></span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">Document Type</span><span class="inp short">D4</span><span class="to">To:</span><span class="inp short"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">Text</span><span class="inp">(จากตาราง mapping)</span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">Assignment</span><span class="inp"></span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">Business Area</span><span class="inp short"></span><span class="to">To:</span><span class="inp short"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">G/L Account</span><span class="inp"></span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">Posting Date</span><span class="inp"></span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">Baseline Payment Date</span><span class="inp"></span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="frow new"><span class="lbl">Ref Key3 (Merchant ID)</span><span class="inp"></span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="group-box">
+              <div class="fs-title" style="margin-top:0">Grouping</div>
+              <div class="radio-line"><span class="radio on"></span>Com , G/L , Text</div>
+              <div class="radio-line"><span class="radio"></span>Com , G/L , Text , Posting Date</div>
+              <div class="radio-line"><span class="radio"></span>Com , G/L , Assignment , Baseline Date</div>
+              <div class="radio-line"><span class="radio"></span>… ตัวเลือก 4–10 …</div>
+              <div class="radio-line"><span class="radio"></span>Com , G/L , Posting Date , Ref Key3 (Merchant ID)<span class="newtag">ใหม่</span></div>
+            </div>
+            <div class="radio-line"><span class="radio"></span>Outgoing (ZARP004)</div>
+            <div class="radio-line"><span class="radio"></span>Incoming and Outgoing (ZFI_BANK_CLEAR)</div>
+          </div>
+        </div>
+      </div>
+      <p class="fig-cap">ภาพจำลอง · <span class="req">*</span> = ช่องบังคับ · แถบเหลือง = ช่องที่เพิ่มใหม่ (ไม่มีใน ZARP003 เดิม)</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ช่อง</th><th>บังคับ</th><th>ค่าเริ่มต้น / หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>Company Code</td><td class="yes">บังคับ</td><td>กด <kbd>F4</kbd> เลือกได้</td></tr>
+            <tr><td>Document Type</td><td>–</td><td>ค่าเริ่ม <code>D4</code> <code>D5</code> <code>D6</code> <code>IB</code> · ถ้าลบออกหมด โปรแกรมจะดึงทุกชนิดเอกสาร</td></tr>
+            <tr><td>Text</td><td>–</td><td>ค่าเริ่มคือรายการ Text จากตาราง mapping (<code>ZFIARI0080_TA01</code> card type 02)</td></tr>
+            <tr><td>G/L Account</td><td>–</td><td>แนะนำให้ใส่เฉพาะบัญชีพักที่คุม open item (ดู <a href="#faq">คำถามที่พบบ่อย</a>)</td></tr>
+            <tr><td>Ref Key3 (Merchant ID)</td><td>–</td><td>กรองด้วยช่อง Reference Key 3 ของรายการ ใช้คู่กับ Grouping 11</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>เลือก Grouping — โปรแกรมรวมรายการที่มีค่าเหล่านี้ตรงกันเป็นกลุ่มเดียว</h3>
+      <div class="keyrow muted" aria-label="คำอธิบายสี">
+        <span class="keys"><span class="key">Com</span></span>บริษัท
+        <span class="keys"><span class="key k-gl">G/L</span></span>บัญชี
+        <span class="keys"><span class="key k-txt">Text</span></span>ข้อความรายการ
+        <span class="keys"><span class="key k-asg">Assignment</span></span>
+        <span class="keys"><span class="key k-date">วันที่</span></span>
+        <span class="keys"><span class="key k-ref">Ref Key3</span></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>รวมกลุ่มด้วย</th><th>กติกาพิเศษ</th><th>หลัง post แก้ในใบเคลียร์</th></tr></thead>
+          <tbody>
+            <tr><td><span class="optno">1</span></td><td><div class="keys"><span class="key">Com</span><span class="key k-gl">G/L</span><span class="key k-txt">Text</span></div></td><td class="muted">ค่าเริ่มต้น</td><td class="after">Text</td></tr>
+            <tr><td><span class="optno">2</span></td><td><div class="keys"><span class="key">Com</span><span class="key k-gl">G/L</span><span class="key k-txt">Text</span><span class="key k-date">Posting Date</span></div></td><td class="muted">–</td><td class="after">Text</td></tr>
+            <tr><td><span class="optno">3</span></td><td><div class="keys"><span class="key">Com</span><span class="key k-gl">G/L</span><span class="key k-asg">Assignment</span><span class="key k-date">Baseline Date</span></div></td><td class="muted">–</td><td class="after">Assignment</td></tr>
+            <tr><td><span class="optno">4</span></td><td><div class="keys"><span class="key">Com</span><span class="key k-txt">Text</span></div></td><td class="muted">ไม่ดู G/L</td><td class="after">Text</td></tr>
+            <tr><td><span class="optno">5</span></td><td><div class="keys"><span class="key">Com</span><span class="key k-txt">Text</span><span class="key k-date">Posting Date</span></div></td><td class="muted">ไม่ดู G/L</td><td class="after">Text</td></tr>
+            <tr><td><span class="optno">6</span></td><td><div class="keys"><span class="key">Com</span><span class="key k-gl">G/L</span><span class="key k-asg">Assignment</span><span class="key k-date">Posting Date</span></div></td><td class="muted">–</td><td class="after">Assignment</td></tr>
+            <tr><td><span class="optno">7</span></td><td><div class="keys"><span class="key">Com</span><span class="key">BA</span><span class="key k-asg">Assignment</span></div></td><td>จับคู่ใบ <code>KM</code> กับ <code>IB</code> ที่ยอดต่างกันไม่เกิน 1 บาท ภายในช่วงวันทำการ (ปฏิทินโรงงาน TH)</td><td class="after">Assignment</td></tr>
+            <tr><td><span class="optno">8</span></td><td><div class="keys"><span class="key">Com</span><span class="key k-gl">G/L</span><span class="key k-asg">Assignment</span><span class="key k-date">Posting Date</span></div></td><td>Topup Rabbit · Assignment ขึ้นต้น <code>รับเงิน Top Up -</code> ที่ไม่ใช่ IB ใช้วันทำการถัดไปมาจัดกลุ่ม (ปฏิทินวันหยุด TH + เสาร์อาทิตย์)</td><td class="after">Assignment</td></tr>
+            <tr><td><span class="optno">9</span></td><td><div class="keys"><span class="key">Com</span><span class="key k-gl">G/L</span><span class="key k-asg">Assignment</span><span class="key k-date">Posting Date</span></div></td><td>Grab · ใบ <code>IB</code> ใช้ Posting Date ลบ 1 วันในการจัดกลุ่ม</td><td class="after">Assignment</td></tr>
+            <tr><td><span class="optno">10</span></td><td><div class="keys"><span class="key">Com</span><span class="key k-gl">G/L</span><span class="key k-asg">Assignment</span></div></td><td class="muted">–</td><td class="after muted">ไม่แก้บรรทัด</td></tr>
+            <tr><td><span class="optno">11</span></td><td><div class="keys"><span class="key">Com</span><span class="key k-gl">G/L</span><span class="key k-date">Posting Date</span><span class="key k-ref">Ref Key3</span></div></td><td>ใหม่ · ใช้ Merchant ID ในช่อง Ref Key3</td><td class="after">Ref Key3</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note tip">
+        <b class="t">กติกาที่ใช้ทุกตัวเลือก</b>
+        <ul>
+          <li>ยอดรวมของกลุ่มต้องเป็น 0 (Dr = Cr) ไม่อย่างนั้นทั้งกลุ่มขึ้นแดง <code>Balance is not 0</code> และไม่ถูก post</li>
+          <li>โปรแกรมไม่ตรวจว่าคู่ต้องเป็นเอกสารชนิดไหน — ถ้า Text ซ้ำกันหลายใบ ควรเลือกตัวเลือกที่ใช้ Assignment แทน</li>
+          <li>ทุกตัวเลือกใส่ Reference Key 2 ที่หัวใบเคลียร์จากตาราง mapping ให้ด้วย (เมื่อพบ Text ในตาราง)</li>
+        </ul>
+      </div>
+
+      <h3>หน้าผลและการ post</h3>
+      <div class="scroll">
+        <div class="sapwin alv" role="img" aria-label="ภาพจำลองหน้าผลโหมด Incoming">
+          <div class="bar"><span>Auto Choose Match Reconcile MT940</span><span class="example-tag" style="color:var(--shell-ink);border-color:var(--shell-ink)">ข้อมูลตัวอย่าง</span></div>
+          <div class="tools"><span class="sbtn hl">Auto Choose <kbd>Shift</kbd>+<kbd>F1</kbd></span><span class="sbtn">Sort</span><span class="sbtn">Filter</span><span class="sbtn">Export</span></div>
+          <table>
+            <thead><tr><th>Status</th><th>Grouping</th><th>CoCd</th><th>DocumentNo</th><th>Type</th><th>Pstng Date</th><th>G/L</th><th>Text</th><th>Assignment</th><th class="num">Amount</th><th>DocumentNo</th><th>Message</th></tr></thead>
+            <tbody>
+              <tr><td><span class="led g"></span></td><td>1001|0010157341|KBANK0811</td><td>1001</td><td>6100000123</td><td>IB</td><td>24.10.2026</td><td>10157341</td><td>KBANK0811</td><td>0000022200001</td><td class="num">-5,000.00</td><td>6300000010</td><td>Document 6300000010 was posted in company code 1001</td></tr>
+              <tr><td><span class="led g"></span></td><td>1001|0010157341|KBANK0811</td><td>1001</td><td>2340000045</td><td>D4</td><td>24.10.2026</td><td>10157341</td><td>KBANK0811</td><td>0000022200001</td><td class="num">5,000.00</td><td>6300000010</td><td>Document 6300000010 was posted in company code 1001</td></tr>
+              <tr class="sub"><td></td><td>1001|0010157341|KBANK0811</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="num">0.00</td><td></td><td></td></tr>
+              <tr><td><span class="led r"></span></td><td>1001|0010157341|SCB0811</td><td>1001</td><td>6100000124</td><td>IB</td><td>24.10.2026</td><td>10157341</td><td>SCB0811</td><td>0000022300001</td><td class="num">-3,200.00</td><td></td><td>Balance is not 0</td></tr>
+              <tr class="sub"><td></td><td>1001|0010157341|SCB0811</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="num">-3,200.00</td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="two">
+        <div class="panel">
+          <h3>กด Auto Choose แล้วเกิดอะไร</h3>
+          <ul>
+            <li>post ทุกกลุ่มที่ช่อง Status ยังว่าง กลุ่มละ 1 ใบเคลียร์</li>
+            <li>ใบเคลียร์: ชนิด <code>IC</code> · Reference <code>ZARP003</code> · สกุล THB · Posting Date = วันล่าสุดของใบ IB ในกลุ่ม</li>
+            <li>ไฟเขียว = สำเร็จ · เลขใบเคลียร์อยู่ในคอลัมน์ <b>DocumentNo ช่องท้าย</b> (ถัดจาก Amount — ชื่อซ้ำกับเลขเอกสารต้นทางแบบเดียวกับ ZARP003) · ไฟแดง = ดูข้อความในช่อง Message</li>
+            <li>กดซ้ำหลัง post แล้วจะได้ข้อความ <code>No data posting</code> ไม่มีการ post ซ้ำ</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>รันเป็น background job</h3>
+          <ul>
+            <li>โปรแกรม post ทุกกลุ่มที่ผ่านให้เลย ไม่ต้องกดปุ่ม</li>
+            <li>ผลลัพธ์ออกเป็น spool ของ job</li>
+            <li>แนะนำให้บันทึก Variant ที่ระบุ G/L และ Grouping ไว้ก่อนตั้ง job</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= OUTGOING ================= -->
+    <section id="outgoing">
+      <div class="mode-head out">
+        <span class="mode-badge out">OUT</span>
+        <h2>Outgoing</h2>
+        <span class="old">แทน ZARP004</span>
+      </div>
+
+      <h3>หน้าจอเลือกข้อมูล</h3>
+      <div class="scroll">
+        <div class="sapwin" role="img" aria-label="ภาพจำลองหน้าจอเลือกข้อมูลโหมด Outgoing">
+          <div class="bar"><span>Program Reprocess Clearing Bank Statement</span><span class="mono">ZCMXXE004</span></div>
+          <div class="tools"><span class="sbtn">Save as Variant…</span><span class="sbtn primary">Execute F8</span></div>
+          <div class="body">
+            <div class="radio-line"><span class="radio on"></span><b>Outgoing (ZARP004)</b></div>
+            <div class="frow"><span class="lbl">Company Code <span class="req">*</span></span><span class="inp">1001</span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">Customer</span><span class="inp"></span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">Business Area</span><span class="inp short"></span><span class="to">To:</span><span class="inp short"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">Document Type <span class="req">*</span></span><span class="inp short">IB</span><span class="to">To:</span><span class="inp short"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">Document Number</span><span class="inp"></span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">G/L Account <span class="req">*</span></span><span class="inp">10157342</span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">Posting Date</span><span class="inp"></span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="frow single"><span class="lbl">Text</span><span class="inp"></span></div>
+            <div class="fs-title" style="margin-left:26px">For Posting Document (IC)</div>
+            <div class="frow single"><span class="lbl">Posting Date</span><span class="inp"></span></div>
+          </div>
+        </div>
+      </div>
+      <p class="fig-cap">ภาพจำลอง · ช่อง Text ใส่ได้หลายค่าแบบค่าเดี่ยว (ไม่มีช่วง To)</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ช่อง</th><th>บังคับ</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>Company Code · Document Type · G/L Account</td><td class="yes">บังคับ</td><td>Document Type ต้องมีทั้ง <code>IB</code> และชนิดของใบรับเงินลูกค้า</td></tr>
+            <tr><td>Text</td><td>–</td><td>ใช้กรองเฉพาะใบ <code>IB</code> (ไม่สนตัวพิมพ์เล็ก/ใหญ่)</td></tr>
+            <tr><td>Customer</td><td>–</td><td>ใช้กรองเฉพาะใบรับเงิน (RC)</td></tr>
+            <tr><td>Posting Date (For Posting Document IC)</td><td>–</td><td>วันที่ของใบเคลียร์ · เว้นว่าง = ใช้ Posting Date ล่าสุดในคู่นั้น</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>โปรแกรมจับคู่อย่างไร</h3>
+      <p class="muted">ใบ IB 1 ใบ จับกับใบรับเงิน (RC) ที่บริษัท, G/L และสกุลเงินเดียวกัน และ Posting Date ของ RC อยู่ในช่วง 5 วันย้อนหลังนับรวมวันของ IB · ลองตามลำดับ 3 ด่าน ใบที่จับได้แล้วจะไม่ถูกใช้ซ้ำ</p>
+      <div class="match">
+        <div class="mcard">
+          <h4><span class="stage">ด่าน 1</span>1 IB : 1 RC ยอดเท่ากัน</h4>
+          <div class="pair"><span class="pill ib">IB 10,000.00</span><span class="eq">=</span><span class="pill rc">RC 10,000.00</span></div>
+          <p>ยอดตรงกันพอดี ไม่มีบรรทัดผลต่าง</p>
+        </div>
+        <div class="mcard">
+          <h4><span class="stage">ด่าน 2</span>1 IB : 1 RC ต่าง ≤ 1.00</h4>
+          <div class="pair"><span class="pill ib">IB 10,000.00</span><span class="eq">≈</span><span class="pill rc">RC 9,999.50</span></div>
+          <p>ผลต่าง 0.50 ลงบัญชีผลต่าง <code>41099099</code> Miscellaneous Income</p>
+        </div>
+        <div class="mcard">
+          <h4><span class="stage">ด่าน 3</span>1 IB : หลาย RC</h4>
+          <div class="pair"><span class="pill ib">IB 10,000.00</span><span class="eq">≈</span><span class="pill-stack"><span class="pill rc">RC 6,000.00</span><span class="pill rc">RC 3,999.80</span></span></div>
+          <p>สะสมยอด RC จนต่างจาก IB ไม่เกิน 1.00</p>
+        </div>
+      </div>
+
+      <h3>หน้าผลและการ post</h3>
+      <div class="scroll">
+        <div class="sapwin alv" role="img" aria-label="ภาพจำลองหน้าผลโหมด Outgoing">
+          <div class="bar"><span>Program Reprocess Clearing Bank Statement</span><span class="example-tag" style="color:var(--shell-ink);border-color:var(--shell-ink)">ข้อมูลตัวอย่าง</span></div>
+          <div class="tools"><span class="sbtn hl">Execute <kbd>F8</kbd></span><span class="sbtn">Sort</span><span class="sbtn">Filter</span><span class="sbtn">Export</span></div>
+          <table>
+            <thead><tr><th>Status</th><th>Match no.</th><th>CoCd</th><th>G/L</th><th>DocumentNo</th><th>Type</th><th>Customer</th><th class="num">Amount</th><th>Year (IC)</th><th>DocumentNo (IC)</th></tr></thead>
+            <tbody>
+              <tr><td><span class="led g"></span></td><td>1</td><td>1001</td><td>10157342</td><td class="hot">6100000201</td><td>IB</td><td></td><td class="num">-10,000.00</td><td>2026</td><td class="hot">6300000021</td></tr>
+              <tr><td><span class="led g"></span></td><td>1</td><td>1001</td><td>10157342</td><td class="hot">1400000088</td><td>DZ</td><td>3000035</td><td class="num">9,999.50</td><td>2026</td><td class="hot">6300000021</td></tr>
+              <tr class="sub"><td></td><td>1</td><td></td><td></td><td></td><td></td><td></td><td class="num">-0.50</td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="two">
+        <div class="panel">
+          <h3>กด Execute แล้วเกิดอะไร</h3>
+          <ul>
+            <li>post ทีละ Match no. ด้วยใบ <code>IC</code> · ถ้ายอดไม่เป็น 0 เพิ่มบรรทัดผลต่างให้อัตโนมัติ</li>
+            <li>คลิกเลขเอกสาร (สีน้ำเงิน) เพื่อเปิด <code>FB03</code></li>
+            <li>post ได้ครั้งเดียวต่อการรัน กดซ้ำจะได้ <code>Documents have already been posted</code></li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>ถ้าไม่มีคู่</h3>
+          <ul>
+            <li>ไม่พบ IB หรือ RC เลย → <code>Data not found!</code></li>
+            <li>มีข้อมูลแต่ไม่มีคู่ไหนผ่าน 3 ด่าน → <code>The selected data cannot be matched.</code></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= IN + OUT ================= -->
+    <section id="inout">
+      <div class="mode-head bth">
+        <span class="mode-badge bth">IN+OUT</span>
+        <h2>Incoming and Outgoing</h2>
+        <span class="old">แทน ZFI_BANK_CLEAR</span>
+      </div>
+
+      <h3>หน้าจอเลือกข้อมูล</h3>
+      <div class="scroll">
+        <div class="sapwin" role="img" aria-label="ภาพจำลองหน้าจอเลือกข้อมูลโหมด Incoming and Outgoing">
+          <div class="bar"><span>Program Reprocess Clearing Bank Statement</span><span class="mono">ZCMXXE004</span></div>
+          <div class="tools"><span class="sbtn">Save as Variant…</span><span class="sbtn primary">Execute F8</span></div>
+          <div class="body">
+            <div class="radio-line"><span class="radio on"></span><b>Incoming and Outgoing (ZFI_BANK_CLEAR)</b></div>
+            <div class="fs-title" style="margin-left:26px">G/L Account Selection</div>
+            <div class="frow"><span class="lbl">G/L Account</span><span class="inp"></span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="frow single"><span class="lbl">Company Code <span class="req">*</span></span><span class="inp short">1001</span></div>
+            <div class="fs-title" style="margin-left:26px">Line item selection</div>
+            <div class="frow"><span class="lbl">Posting Date</span><span class="inp"></span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="frow"><span class="lbl">Document Number</span><span class="inp"></span><span class="to">To:</span><span class="inp"></span><span class="multi"></span></div>
+            <div class="fs-title" style="margin-left:26px">BDC mode</div>
+            <div class="frow single"><span class="lbl">BDC Mode <span class="req">*</span></span><span class="inp short">E</span></div>
+            <div class="fs-title" style="margin-left:26px">Background Parameters</div>
+            <div class="frow single"><span class="lbl">Posting Date for Background</span><span class="inp"></span></div>
+          </div>
+        </div>
+      </div>
+      <p class="fig-cap">ภาพจำลอง · Company Code ใส่ได้บริษัทเดียว</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ช่อง</th><th>บังคับ</th><th>หมายเหตุ</th></tr></thead>
+          <tbody>
+            <tr><td>Company Code</td><td class="yes">บังคับ</td><td>ต้องมีสิทธิ์ post ของบริษัทนั้น (ไม่มีสิทธิ์ → <code>No Authorization.</code>)</td></tr>
+            <tr><td>G/L Account</td><td>–</td><td>โปรแกรมแสดงเฉพาะบัญชีธนาคารตามรูปแบบที่กำหนด (<a href="#reference">ดูรายการ</a>) และรายการที่ยังไม่ถูกเคลียร์</td></tr>
+            <tr><td>BDC Mode</td><td class="yes">บังคับ</td><td>ค่าเริ่ม <code>E</code> · แก้ได้เฉพาะ user ที่ชื่อมีคำว่า <code>CONV</code> · <code>A</code> = แสดงทุกจอ FB05 · <code>E</code> = แสดงเมื่อ error · <code>N</code> = ไม่แสดง</td></tr>
+            <tr><td>Document Number · Posting Date for Background</td><td>เฉพาะ background</td><td>รันเป็น job ต้องกรอกทั้งสองช่อง</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>ขั้นตอนบนหน้าผล</h3>
+      <div class="flowline">
+        <div class="fbox bth"><span class="tag">1 · เลือก</span><b>ติ๊กช่อง Select</b><span>คลิกทีละแถว หรือ <kbd>F9</kbd> Select All · <kbd>Shift</kbd>+<kbd>F1</kbd> Deselect All</span></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="fbox bth"><span class="tag">2 · ตรวจยอด</span><b>Simulate <kbd>Shift</kbd>+<kbd>F2</kbd></b><span>popup สรุป Debit / Credit แยกตาม G/L</span></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="fbox bth"><span class="tag">3 · post</span><b>POST <kbd>F9</kbd></b><span>ใส่ Posting Date ในหน้าต่าง Date Input แล้วตกลง</span></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="fbox bth"><span class="tag">4 · ผล</span><b>แถวที่เคลียร์แล้วหายไป</b><span>ใบเคลียร์ชนิด <code>IY</code> · Reference <code>ZFI_BANK_CLEAR</code></span></div>
+      </div>
+
+      <div class="scroll">
+        <div class="sapwin alv" role="img" aria-label="ภาพจำลองหน้าผลโหมด Incoming and Outgoing">
+          <div class="bar"><span>Program Reprocess Clearing Bank Statement</span><span class="example-tag" style="color:var(--shell-ink);border-color:var(--shell-ink)">ข้อมูลตัวอย่าง</span></div>
+          <div class="tools"><span class="sbtn">Select All <kbd>F9</kbd></span><span class="sbtn">Deselect All <kbd>Shift</kbd>+<kbd>F1</kbd></span><span class="sbtn hl">Simulate <kbd>Shift</kbd>+<kbd>F2</kbd></span></div>
+          <table>
+            <thead><tr><th>Select</th><th>Pmt meth.</th><th>CoCd</th><th>G/L</th><th>DocumentNo</th><th>Itm</th><th>Pstng Date</th><th>Assignment</th><th class="num">Amount LC</th><th>Check no.</th><th>Long Text</th></tr></thead>
+            <tbody>
+              <tr><td><span class="chk on"></span></td><td></td><td>1001</td><td>10157341</td><td>6100000301</td><td>002</td><td>24.10.2026</td><td>0000022200001</td><td class="num">-13,000.00</td><td></td><td>TRF FROM CUSTOMER</td></tr>
+              <tr><td><span class="chk on"></span></td><td>C</td><td>1001</td><td>10157341</td><td>1400000112</td><td>001</td><td>24.10.2026</td><td>0000022200001</td><td class="num">12,999.60</td><td>100245</td><td></td></tr>
+              <tr><td><span class="chk"></span></td><td></td><td>1001</td><td>10157342</td><td>6100000305</td><td>002</td><td>25.10.2026</td><td>0000022500001</td><td class="num">-4,500.00</td><td></td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="two">
+        <div class="panel">
+          <h3>Simulate ตรวจอะไร</h3>
+          <ul>
+            <li>ต้องเลือกอย่างน้อย 2 แถว ไม่อย่างนั้นได้ <code>Please select at least 2 lines</code></li>
+            <li>ผลต่าง Dr/Cr เกิน 1.00 บาท → <code>Debit/Credit Balance is greater then 1.00 THB</code> ไม่มีปุ่ม POST</li>
+            <li>มีผลต่างแต่รายการคนละ Business Area → <code>Dr./Cr. Balance is different BA with diff. amount</code></li>
+            <li>ผลต่างไม่เกิน 1.00 บาท → เพิ่มบรรทัดผลต่างเข้าบัญชี <code>41099018</code> Decimal Difference from Payment/Receive ให้ใน popup</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>หน้าต่าง Date Input</h3>
+          <ul>
+            <li>Posting Date ต้องกรอก</li>
+            <li>กดยกเลิก = ไม่ post (ปลอดภัยกว่าโปรแกรมเดิมที่ post ต่อด้วยวันที่ว่าง)</li>
+            <li>Business Place ของใบเคลียร์ดึงจากตาราง <a href="#setup">Business Place</a> ตามบริษัท + Business Area</li>
+            <li>post สำเร็จ แถวที่เคลียร์แล้วถูกเอาออกจากตาราง ทำคู่ถัดไปต่อได้ทันที</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note tip">
+        <b class="t">รันเป็น background job</b>
+        <p>ต้องกรอก Document Number และ Posting Date for Background · โปรแกรมเลือกทุกแถว ทำ Simulate แบบเดียวกัน แล้ว post ด้วยโหมด N (ไม่แสดงจอ) · ถ้าลืมกรอกจะได้ <code>In background mode, document number must be specified</code> หรือ <code>… posting date must be specified</code></p>
+      </div>
+    </section>
+
+    <!-- ================= MESSAGES ================= -->
+    <section id="messages">
+      <div class="sec-head">
+        <div class="kicker">แก้ปัญหา</div>
+        <h2>ข้อความที่อาจเจอ และวิธีแก้</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ข้อความ</th><th>โหมด</th><th>หมายความว่า</th><th>ทำอย่างไร</th></tr></thead>
+          <tbody>
+            <tr><td><code>Fill in all required entry fields</code></td><td>ทุกโหมด</td><td>ช่องบังคับของโหมดที่เลือกยังว่าง</td><td>Incoming: Company Code · Outgoing: Company Code, Document Type, G/L Account · In+Out: Company Code, BDC Mode</td></tr>
+            <tr><td><code>Data not found.</code></td><td><span class="dot in" style="display:inline-block"></span> IN</td><td>ไม่มีรายการค้างตามเงื่อนไข</td><td>ขยายช่วงวันที่ ตรวจ Text / Document Type</td></tr>
+            <tr><td><code>Balance is not 0</code></td><td><span class="dot in" style="display:inline-block"></span> IN</td><td>ยอดรวมของกลุ่มไม่เป็น 0</td><td>เปลี่ยน Grouping หรือหาคู่ที่ขาด กลุ่มนี้จะไม่ถูก post</td></tr>
+            <tr><td><code>No data posting</code></td><td><span class="dot in" style="display:inline-block"></span> IN</td><td>ไม่มีกลุ่มที่พร้อม post (แดงหมด หรือ post ไปแล้ว)</td><td>ไม่ต้องทำอะไร หรือรันใหม่</td></tr>
+            <tr><td><code>Document Header: xref2_hd can't updated</code></td><td><span class="dot in" style="display:inline-block"></span> IN</td><td>ใบเคลียร์ post แล้ว แต่แก้ Reference Key 2 / Text ไม่สำเร็จ</td><td>แจ้งทีม SAP พร้อมเลขใบเคลียร์</td></tr>
+            <tr><td><code>Data not found!</code></td><td><span class="dot out" style="display:inline-block"></span> OUT</td><td>ไม่พบใบ IB หรือใบรับเงิน</td><td>ตรวจ Document Type ว่ามีทั้งสองฝั่ง</td></tr>
+            <tr><td><code>The selected data cannot be matched.</code></td><td><span class="dot out" style="display:inline-block"></span> OUT</td><td>ไม่มีคู่ผ่าน 3 ด่าน</td><td>ตรวจช่วง 5 วัน และยอดต่าง</td></tr>
+            <tr><td><code>Documents have already been posted</code></td><td><span class="dot out" style="display:inline-block"></span> OUT</td><td>กด Execute ซ้ำในการรันเดียวกัน</td><td>รันโปรแกรมใหม่ถ้าต้องการ post เพิ่ม</td></tr>
+            <tr><td><code>Please select at least 2 lines</code></td><td><span class="dot bth" style="display:inline-block"></span> IN+OUT</td><td>ยังไม่ได้ติ๊กแถว</td><td>ติ๊ก Select อย่างน้อย 2 แถว</td></tr>
+            <tr><td><code>Debit/Credit Balance is greater then 1.00 THB</code></td><td><span class="dot bth" style="display:inline-block"></span> IN+OUT</td><td>ผลต่างเกิน 1 บาท</td><td>เลือกแถวใหม่ให้ยอดใกล้กัน</td></tr>
+            <tr><td><code>Dr./Cr. Balance is different BA with diff. amount</code></td><td><span class="dot bth" style="display:inline-block"></span> IN+OUT</td><td>มีผลต่างและ Business Area ไม่เหมือนกัน</td><td>แยกเคลียร์ทีละ Business Area</td></tr>
+            <tr><td><code>No Authorization.</code></td><td><span class="dot bth" style="display:inline-block"></span> IN+OUT</td><td>ไม่มีสิทธิ์ post ของบริษัทนี้</td><td>ขอสิทธิ์ F_BKPF_BUK</td></tr>
+            <tr><td><code>No message returned from posting</code></td><td><span class="dot bth" style="display:inline-block"></span> IN+OUT</td><td>ระบบ post ไม่ส่งผลกลับ ไม่ได้ใบเคลียร์</td><td>แจ้งทีม SAP</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= SETUP ================= -->
+    <section id="setup">
+      <div class="sec-head">
+        <div class="kicker">ตั้งค่า</div>
+        <h2>ตาราง Business Place (SM30)</h2>
+        <p>ใช้ในโหมด Incoming and Outgoing เพื่อใส่ Business Place ให้ใบเคลียร์ แทนตาราง <code>ZCO_ORG_VAL</code> ของ ECC</p>
+      </div>
+      <div class="two">
+        <div class="panel">
+          <h3>วิธีแก้ข้อมูล</h3>
+          <ol class="steps" style="gap:8px">
+            <li><div><b>T-code <code>SM30</code></b><span>Table/View: <code>ZCMXXE0040_MV01</code></span></div></li>
+            <li><div><b>กด Maintain</b><span>แก้หรือเพิ่มแถว แล้ว Save</span></div></li>
+          </ol>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>CoCd</th><th>BusA</th><th>BP</th><th></th></tr></thead>
+            <tbody>
+              <tr><td class="mono">1001</td><td class="mono">A01</td><td class="mono">0000</td><td class="muted">ตัวอย่าง</td></tr>
+              <tr><td class="mono">1001</td><td class="mono">HYI</td><td class="mono">0001</td><td class="muted">ตัวอย่าง</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section id="faq">
+      <div class="sec-head">
+        <div class="kicker">คำถามที่พบบ่อย</div>
+        <h2>จากการทดสอบจริง</h2>
+      </div>
+      <div class="faq">
+        <article class="qa">
+          <h3>ทำไมใบ IB ถูกเคลียร์กับใบที่ไม่ใช่คู่ของมัน</h3>
+          <p>Grouping แบบ Text (ตัวเลือก 1, 2, 4, 5) รวมทุกใบที่ Text เหมือนกันเป็นกลุ่มเดียว แล้วดูแค่ว่ายอดรวมเป็น 0 ถ้าข้อมูลใช้ Text ซ้ำกันหลายใบ ใบใดก็ตามที่ยอดหักลบกันพอดีจะถูกจับคู่กัน โปรแกรมเดิมใน ECC ทำแบบเดียวกัน · ถ้าจะจับคู่ด้วยเลขอ้างอิงให้ใช้ตัวเลือกที่มี Assignment (3, 6, 10)</p>
+        </article>
+        <article class="qa">
+          <h3>เคลียร์แล้ว ทำไมเลขเอกสารยังอยู่ในหน้าผล</h3>
+          <p>เอกสารธนาคารมีหลายบรรทัด บรรทัดที่อยู่ในบัญชีธนาคารหลักซึ่งไม่คุม open item จะไม่มีวันถูกเคลียร์ จึงโผล่ทุกครั้งที่รัน (ECC ก็เป็นแบบนี้) · ใส่ G/L Account เฉพาะบัญชีพักที่คุม open item ในหน้าจอเลือกข้อมูล บรรทัดเหล่านั้นจะไม่ติดมา</p>
+        </article>
+        <article class="qa">
+          <h3>เคลียร์ผิดคู่ไปแล้ว ทำอย่างไร</h3>
+          <p>ให้ฝ่ายบัญชีกลับรายการเคลียร์ด้วย <code>FBRA</code> ด้วยเลขใบเคลียร์ (Incoming: คอลัมน์ DocumentNo ช่องท้าย · Outgoing: DocumentNo (IC)) รายการจะกลับมาค้างเหมือนเดิม แล้วรันโปรแกรมใหม่ด้วย Grouping ที่ถูกต้อง</p>
+        </article>
+        <article class="qa">
+          <h3>ใบ DM หรือชนิดอื่นโผล่มาในโหมด Incoming ได้อย่างไร</h3>
+          <p>ช่อง Document Type ถูกแก้ไม่ให้เหลือแค่ค่าเริ่มต้น D4 D5 D6 IB หรือถูกลบจนว่าง โปรแกรมจึงดึงทุกชนิดเอกสาร ตรวจช่องนี้ใน Variant ก่อนรัน</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================= REFERENCE ================= -->
+    <section id="reference">
+      <div class="sec-head">
+        <div class="kicker">อ้างอิง</div>
+        <h2>ค่าที่โปรแกรมใช้</h2>
+        <p>ค่าเหล่านี้กำหนดไว้ในโปรแกรม หากต้องเปลี่ยนให้แจ้งทีม SAP</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>เรื่อง</th><th>Incoming</th><th>Outgoing</th><th>Incoming and Outgoing</th></tr></thead>
+          <tbody>
+            <tr><td>ชนิดใบเคลียร์</td><td><code>IC</code></td><td><code>IC</code></td><td><code>IY</code></td></tr>
+            <tr><td>Reference (XBLNR)</td><td><code>ZARP003</code></td><td>–</td><td><code>ZFI_BANK_CLEAR</code></td></tr>
+            <tr><td>บัญชีผลต่าง</td><td>–</td><td><code>41099099</code> Miscellaneous Income</td><td><code>41099018</code> Decimal Difference from Payment/Receive</td></tr>
+            <tr><td>ผลต่างสูงสุด</td><td>ต้องเป็น 0 (ตัวเลือก 7: KM–IB ≤ 1 บาท)</td><td>1.00 บาท</td><td>1.00 บาท</td></tr>
+            <tr><td>post ผ่าน</td><td>FB05 Incoming payment</td><td>FB05 Incoming payment</td><td>FB05 Transfer posting</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <h3>บัญชีธนาคารที่โหมด Incoming and Outgoing อ่าน</h3>
+        <p class="muted">เลข G/L ที่ตรงกับรูปแบบต่อไปนี้ (<code>*</code> = ตัวเลขใดก็ได้)</p>
+        <div class="keys">
+          <span class="key k-gl mono">1011*1</span><span class="key k-gl mono">1012*1</span><span class="key k-gl mono">1014*1</span>
+          <span class="key k-gl mono">1011*2</span><span class="key k-gl mono">1012*2</span><span class="key k-gl mono">1014*2</span>
+          <span class="key k-gl mono">1015*1</span><span class="key k-gl mono">1016*1</span>
+          <span class="key k-gl mono">1015*2</span><span class="key k-gl mono">1016*2</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>Program <span class="mono">ZCMXXE0040</span> · T-code <span class="mono">ZCMXXE004</span></span>
+    <span>อ้างอิง FS_ZCMXXE004 V0.01 · ปรับปรุงล่าสุด CH09 (27.10.2026)</span>
+    <span>ตัวอย่างในภาพจำลองเป็นข้อมูลสมมติ</span>
+  </div>
+</footer>
